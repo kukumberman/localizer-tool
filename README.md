@@ -1,19 +1,33 @@
-# vue3-game-localization
+# localizer-tool
 
-## Project setup
-```
-npm install
+This application allows easily convert entire sheet to json format
+
+Everything is done on client side! Google api is not required
+
+## Demo ✨
+https://kukumberman.github.io/localizer-tool/?id=1BFaDYt_96wAQcdGS5rdNoIAVlvtuyh4Bm_JMdjoF7Po
+
+## Input 🤖
+
+|       | English  | Russian | French       |
+|-------|----------|---------|--------------|
+| title | Cucumber | Огурец  | Le concombre |
+
+## Output 🥳
+
+```json
+{
+  "English": {
+    "title": "Cucumber"
+  },
+  "Russian": {
+    "title": "Огурец"
+  },
+  "French": {
+    "title": "Le concombre"
+  }
+}
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Todo 🗿
+- [ ] website design
