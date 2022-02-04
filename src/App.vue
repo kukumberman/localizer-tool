@@ -6,7 +6,7 @@
     <button @click="fetchZip">Fetch</button>
   </div>
   <div>
-    <a :href="spreadsheetUrl">{{ spreadsheetUrl }}</a>
+    <a :href="spreadsheetUrl" target="_blank">{{ spreadsheetUrl }}</a>
   </div>
   <div v-if="files.length > 0">
     <ul>
@@ -16,8 +16,10 @@
       </li>
     </ul>
   </div>
-  <div>
-    <textarea :value="json" cols="100" rows="40"></textarea>
+  <div v-if="json.length > 0">
+    <!-- <textarea :value="json" cols="100" rows="40"></textarea> -->
+    <pre><code>{{ json }}</code></pre>
+    <button @click="downloadHandler">Download</button>
   </div>
 </template>
 
@@ -29,7 +31,7 @@ export default {
   },
   data() {
     return {
-      id: "1BFaDYt_96wAQcdGS5rdNoIAVlvtuyh4Bm_JMdjoF7Po",
+      id: "",
       localizer: new Localizer(),
       files: [],
       json: "",
@@ -58,6 +60,9 @@ export default {
     },
     async convertFile(name) {
       this.json = await this.localizer.fromFile(name)
+    },
+    downloadHandler() {
+      this.localizer.saveFile(this.json)
     }
   },
   computed: {

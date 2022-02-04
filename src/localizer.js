@@ -1,4 +1,5 @@
 import JSZip from "jszip"
+import FileSaver from "file-saver"
 
 /**
  * Downloads spreadsheet as zip file from google
@@ -111,6 +112,7 @@ export default class Localizer {
     return Object.values(this.zip.files)
       .map(file => file.name)
       .filter(name => name.endsWith(".html"))
+      .map(name => name.replace(".html", ""))
   }
 
   /**
@@ -119,9 +121,21 @@ export default class Localizer {
    * @returns 
    */
   async fromFile(name) {
-    const htmlText = await this.zip.file(name).async("string")
+    const htmlText = await this.zip.file(name + ".html").async("string")
     const grid = filterGrid(createGrid(htmlText), this.options.ignoreSymbol)
     const result = gridToJson(grid, this.options)
     return result
+  }
+
+  /**
+   * 
+   * @param { string } text 
+   */
+  saveFile(text) {
+    const blob = new Blob([text], { type: "text/plain;charset=utf-8;" })
+    const ts = Date.now()
+    const date = (ts - ts % 1000) / 1000 // removes 3 last characters from number
+    const filename = `thx for using - ${date}.json`
+    FileSaver.saveAs(blob, filename);
   }
 }
