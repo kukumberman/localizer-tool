@@ -24,7 +24,7 @@ function createGrid(htmlText) {
 
   const rows = documentNode.querySelectorAll("tbody > tr")
   const grid = Array.from(rows).map(tr => {
-    return Array.from(tr.querySelectorAll("td")).map(td => td.textContent)
+    return Array.from(tr.querySelectorAll("td")).map(td => td.innerHTML.replace(/<br>/g, "\n"))
   })
 
   return grid
