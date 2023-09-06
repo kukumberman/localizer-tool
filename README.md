@@ -9,9 +9,9 @@ https://kukumberman.github.io/localizer-tool/?id=1BFaDYt_96wAQcdGS5rdNoIAVlvtuyh
 
 ## Input 🤖
 
-|       | English  | Russian | French       |
-|-------|----------|---------|--------------|
-| title | Cucumber | Огурец  | Le concombre |
+|       | English  | Ukrainian |
+|-------|----------|-----------|
+| title | Cucumber | Огірочок  |
 
 ## Output 🥳
 
@@ -20,11 +20,8 @@ https://kukumberman.github.io/localizer-tool/?id=1BFaDYt_96wAQcdGS5rdNoIAVlvtuyh
   "English": {
     "title": "Cucumber"
   },
-  "Russian": {
-    "title": "Огурец"
-  },
-  "French": {
-    "title": "Le concombre"
+  "Ukrainian": {
+    "title": "Огірочок"
   }
 }
 ```
