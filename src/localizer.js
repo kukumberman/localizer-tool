@@ -1,6 +1,16 @@
 import JSZip from "jszip"
 import FileSaver from "file-saver"
 
+const htmlEntities = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  "'": '&apos;',
+}
+
+const htmlEntitiesReversed = Object.fromEntries(Object.entries(htmlEntities).map(([k, v]) => ([v, k])))
+
 /**
  * Downloads spreadsheet as zip file from google
  * @param { string } id Unique spreadsheet identifier
@@ -24,10 +34,31 @@ function createGrid(htmlText) {
 
   const rows = documentNode.querySelectorAll("tbody > tr")
   const grid = Array.from(rows).map(tr => {
-    return Array.from(tr.querySelectorAll("td")).map(td => td.innerHTML.replace(/<br>/g, "\n"))
+    return Array.from(tr.querySelectorAll("td")).map(td => {
+      const str = td.innerHTML.replace(/<br>/g, "\n")
+      return restoreHtmlEntities(str)
+    })
   })
 
   return grid
+}
+
+/**
+ * 
+ * @param { string } str 
+ */
+function restoreHtmlEntities(str) {
+  const regex = new RegExp(`(${Object.keys(htmlEntitiesReversed).join('|')})`, 'g')
+  return str.replace(regex, match => htmlEntitiesReversed[match])
+}
+
+/**
+ * 
+ * @param { string } str 
+ */
+function replaceHtmlEntities(str) {
+  const regex = new RegExp(`[${Object.keys(htmlEntities).join('')}]`, 'g')
+  return str.replace(regex, match => htmlEntities[match])
 }
 
 /**
