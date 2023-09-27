@@ -16,10 +16,10 @@
       </li>
     </ul>
   </div>
+  <textarea cols="100" rows="40" v-model="json"></textarea>
   <div v-if="json.length > 0">
-    <!-- <textarea :value="json" cols="100" rows="40"></textarea> -->
-    <pre><code>{{ json }}</code></pre>
     <button @click="downloadHandler">Download</button>
+    <button @click="copyToClipboard">Copy to clipboard</button>
   </div>
 </template>
 
@@ -55,6 +55,8 @@ export default {
   },
   methods: {
     async fetchZip() {
+      this.json = ""
+      this.files = []
       await this.localizer.fetchZip()
       this.files = this.localizer.getFiles()
     },
@@ -63,6 +65,15 @@ export default {
     },
     downloadHandler() {
       this.localizer.saveFile(this.json)
+    },
+    async copyToClipboard() {
+      try {
+        await window.navigator.clipboard.writeText(this.json)
+        alert("Done")
+      }
+      catch {
+        alert("Failed to copy to clipboard")
+      }
     }
   },
   computed: {
