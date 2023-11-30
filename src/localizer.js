@@ -88,6 +88,11 @@ function gridToJson(grid, options) {
 
   for (let x = 1; x < languages.length; x++) {
     let lang = languages[x]
+
+    if (lang.trim().length === 0) {
+      continue
+    }
+
     const foo = lang.startsWith(options.ignoreSymbol)
 
     if (options.excludeLang && foo) {
